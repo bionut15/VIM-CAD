@@ -5,16 +5,42 @@ fn main() {
         .add_plugins(DefaultPlugins)
         .add_systems(
             Startup,
-            (spawn_camera, spawn_plane, spawn_center, spawn_light),
+            (
+                spawn_camera,
+                spawn_plane,
+                spawn_center,
+                spawn_light,
+                keyboard_input,
+            ),
         )
         .run();
 }
+
+struct coord {
+    x: f32,
+    y: f32,
+    z: f32,
+}
+
 fn spawn_camera(mut commands: Commands) {
+    let x_c: f32 = -2.5;
+    let y_c: f32 = 5.0;
+    let z_c: f32 = 2.5;
+
     let camera = Camera3dBundle {
-        transform: Transform::from_xyz(-2.5, 5.0, 2.5).looking_at(Vec3::ZERO, Vec3::Z),
+        transform: Transform::from_xyz(x_c, y_c, z_c).looking_at(Vec3::ZERO, Vec3::Z),
         ..default()
     };
     commands.spawn(camera);
+}
+fn keyboard_input(keys: Res<ButtonInput<KeyCode>>) {
+    let mut x_c: f32 = -2.5;
+    let y_c: f32 = 5.0;
+    let z_c: f32 = 2.5;
+
+    if keys.just_pressed(KeyCode::Space) {
+        x_c += 1.0;
+    }
 }
 // to do implement the color to a variable
 fn spawn_plane(
