@@ -5,23 +5,18 @@ fn main() {
         .add_plugins(DefaultPlugins)
         .add_systems(
             Startup,
-            (
-                spawn_camera,
-                spawn_plane,
-                spawn_center,
-                spawn_light,
-                keyboard_input,
-            ),
+            (spawn_camera, spawn_plane, spawn_center, spawn_light),
         )
         .run();
 }
 
-struct coord {
-    x: f32,
-    y: f32,
-    z: f32,
-}
+//struct Coord {
+//    x: f32,
+//    y: f32,
+//    z: f32,
+//}
 
+// need some rethinking about how
 fn spawn_camera(mut commands: Commands) {
     let x_c: f32 = -2.5;
     let y_c: f32 = 5.0;
@@ -33,15 +28,7 @@ fn spawn_camera(mut commands: Commands) {
     };
     commands.spawn(camera);
 }
-fn keyboard_input(keys: Res<ButtonInput<KeyCode>>) {
-    let mut x_c: f32 = -2.5;
-    let y_c: f32 = 5.0;
-    let z_c: f32 = 2.5;
 
-    if keys.just_pressed(KeyCode::Space) {
-        x_c += 1.0;
-    }
-}
 // to do implement the color to a variable
 fn spawn_plane(
     mut commands: Commands,
