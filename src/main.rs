@@ -7,16 +7,45 @@ fn main() {
             Startup,
             (spawn_camera, spawn_plane, spawn_center, spawn_light),
         )
+        .add_systems(Update, camera_movement_system)
         .run();
 }
 
-//struct Coord {
-//    x: f32,
-//    y: f32,
-//    z: f32,
-//}
+// need some more thinkering
+fn camera_movement_system(
+    keyboard_input: Res<ButtonInput<KeyCode>>,
+    mut query: Query<&mut Transform, With<Camera>>,
+) {
+    for mut transform in query.iter_mut() {
+        let rotation_speed = std::f32::consts::PI / 180.0; // Rotation speed in radians
 
-// need some rethinking about how
+        let pivot = Vec3::ZERO;
+
+        let offset = transform.translation - pivot;
+
+        if keyboard_input.pressed(KeyCode::KeyH) {
+            let rotation = Quat::from_rotation_y(rotation_speed);
+            transform.translation = pivot + rotation * offset;
+            transform.look_at(pivot, Vec3::Z);
+        }
+        if keyboard_input.pressed(KeyCode::KeyL) {
+            let rotation = Quat::from_rotation_y(-rotation_speed);
+            transform.translation = pivot + rotation * offset;
+            transform.look_at(pivot, Vec3::Z);
+        }
+        if keyboard_input.pressed(KeyCode::KeyJ) {
+            let rotation = Quat::from_rotation_x(rotation_speed);
+            transform.translation = pivot + rotation * offset;
+            transform.look_at(pivot, Vec3::Z);
+        }
+        if keyboard_input.pressed(KeyCode::KeyK) {
+            let rotation = Quat::from_rotation_x(-rotation_speed);
+            transform.translation = pivot + rotation * offset;
+            transform.look_at(pivot, Vec3::Z);
+        }
+    }
+}
+
 fn spawn_camera(mut commands: Commands) {
     let x_c: f32 = -2.5;
     let y_c: f32 = 5.0;
@@ -29,7 +58,7 @@ fn spawn_camera(mut commands: Commands) {
     commands.spawn(camera);
 }
 
-// to do implement the color to a variable
+// Change shape and texture to be better
 fn spawn_plane(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
@@ -44,7 +73,7 @@ fn spawn_plane(
             ..default()
         },
 
-        material: materials.add(Color::rgba(184.0, 210.0, 240.0, 0.29)),
+        material: materials.add(Color::rgba(184.0, 210.0, 240.0, 0.19)),
         ..default()
     };
     let plane_xz = PbrBundle {
@@ -54,12 +83,12 @@ fn spawn_plane(
             rotation: Quat::from_rotation_z(std::f32::consts::FRAC_PI_2),
             scale: plane_scale,
         },
-        material: materials.add(Color::rgba(184.0, 210.0, 240.0, 0.29)),
+        material: materials.add(Color::rgba(184.0, 210.0, 240.0, 0.19)),
         ..default()
     };
     let plane_yz = PbrBundle {
         mesh: meshes.add(Mesh::from(Plane3d::default().mesh().size(1.5, 1.5))),
-        material: materials.add(Color::rgba(184.0, 210.0, 240.0, 0.29)),
+        material: materials.add(Color::rgba(184.0, 210.0, 240.0, 0.19)),
         transform: Transform {
             translation: Vec3::new(0.0, 0.0, 0.0), // center of the plane
             rotation: Quat::from_rotation_x(std::f32::consts::FRAC_PI_2),
