@@ -1,16 +1,15 @@
 use bevy::prelude::*;
 use bevy_egui::{egui, EguiContexts, EguiPlugin};
 
-mod camera;
-mod canvas;
-mod gui;
+mod app;
+mod viewport;
 
-use camera::camera_movement_system;
-use camera::spawn_camera;
-use canvas::spawn_center;
-use canvas::spawn_light;
-use canvas::spawn_plane;
-use gui::UI;
+use app::gui::UI;
+use viewport::camera::camera_movement_system;
+use viewport::camera::spawn_camera;
+use viewport::canvas::spawn_center;
+use viewport::canvas::spawn_light;
+use viewport::canvas::spawn_plane;
 
 fn main() {
     App::new()

@@ -17,7 +17,7 @@ pub fn camera_movement_system(
     mut query: Query<&mut Transform, With<Camera>>,
 ) {
     for mut transform in query.iter_mut() {
-        let rotation_speed = std::f32::consts::PI / 180.0; // Rotation speed in radians
+        let rotation_speed = std::f32::consts::PI / 180.0;
 
         let pivot = Vec3::ZERO;
 
@@ -28,18 +28,19 @@ pub fn camera_movement_system(
             transform.translation = pivot + rotation * offset;
             transform.look_at(pivot, Vec3::Y);
         }
-        if keyboard_input.pressed(KeyCode::KeyL) {
-            let rotation = Quat::from_rotation_y(-rotation_speed);
-            transform.translation = pivot + rotation * offset;
-            transform.look_at(pivot, Vec3::Y);
-        }
+        //need to rotate around an imaginary axis
         if keyboard_input.pressed(KeyCode::KeyJ) {
-            let rotation = Quat::from_rotation_z(rotation_speed);
+            let rotation = Quat::from_rotation_x(-rotation_speed);
             transform.translation = pivot + rotation * offset;
-            transform.look_at(pivot, Vec3::Y);
+            transform.look_at(pivot, Vec3::X);
         }
         if keyboard_input.pressed(KeyCode::KeyK) {
-            let rotation = Quat::from_rotation_z(-rotation_speed);
+            let rotation = Quat::from_rotation_x(rotation_speed);
+            transform.translation = pivot + rotation * offset;
+            transform.look_at(pivot, Vec3::X);
+        }
+        if keyboard_input.pressed(KeyCode::KeyL) {
+            let rotation = Quat::from_rotation_y(-rotation_speed);
             transform.translation = pivot + rotation * offset;
             transform.look_at(pivot, Vec3::Y);
         }
