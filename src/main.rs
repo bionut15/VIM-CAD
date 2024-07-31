@@ -1,10 +1,12 @@
 use bevy::prelude::*;
-use bevy_egui::{egui, EguiContexts, EguiPlugin};
+use bevy_egui::EguiPlugin;
 
 mod app;
+mod parser;
 mod viewport;
 
 use app::gui::UI;
+use parser::loader::load_model;
 use viewport::camera::camera_movement_system;
 use viewport::camera::spawn_camera;
 use viewport::canvas::spawn_center;
@@ -17,7 +19,13 @@ fn main() {
         .add_plugins(EguiPlugin)
         .add_systems(
             Startup,
-            (spawn_camera, spawn_plane, spawn_center, spawn_light),
+            (
+                load_model,
+                spawn_camera,
+                spawn_plane,
+                spawn_center,
+                spawn_light,
+            ),
         )
         .add_systems(Update, (camera_movement_system, UI))
         .run();
