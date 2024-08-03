@@ -2,6 +2,7 @@ use bevy::prelude::*;
 use bevy_egui::EguiPlugin;
 
 mod app;
+mod modes;
 mod parser;
 mod viewport;
 
