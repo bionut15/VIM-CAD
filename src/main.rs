@@ -1,9 +1,10 @@
 use bevy::prelude::*;
 use bevy_egui::EguiPlugin;
-
+use bevy_panorbit_camera::PanOrbitCameraPlugin;
 mod app;
 mod modes;
 mod parser;
+mod shaders;
 mod viewport;
 
 use app::gui::UI;
@@ -18,6 +19,7 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_plugins(EguiPlugin)
+        .add_plugins(PanOrbitCameraPlugin)
         .add_systems(
             Startup,
             (
