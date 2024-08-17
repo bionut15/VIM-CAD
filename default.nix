@@ -6,7 +6,9 @@ with pkgs;
     ];
     buildInputs = [
       udev
+      vulkan-tools
       alsa-lib
+      vulkan-validation-layers
       vulkan-loader
       xorg.libX11
       xorg.libXcursor

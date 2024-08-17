@@ -1,5 +1,5 @@
 //add shader functionality
-use crate::shaders::shader;
+//use crate::shaders::shader;
 use bevy::prelude::*;
 
 // make it read from a config file

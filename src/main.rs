@@ -1,8 +1,8 @@
 use bevy::prelude::*;
 use bevy_egui::EguiPlugin;
 use bevy_panorbit_camera::PanOrbitCameraPlugin;
+
 mod app;
-mod modes;
 mod parser;
 mod shaders;
 mod viewport;
