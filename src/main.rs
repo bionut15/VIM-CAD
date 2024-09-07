@@ -2,7 +2,11 @@ use bevy::prelude::*;
 use bevy_egui::EguiPlugin;
 use bevy_panorbit_camera::PanOrbitCameraPlugin;
 
-mod app;
+//if u use modules outside of main u have to declare them here xd
+mod app {
+    pub mod gui;
+    pub mod state;
+}
 mod parser;
 mod shaders;
 mod viewport;
@@ -23,6 +27,7 @@ fn main() {
         .add_systems(
             Startup,
             (
+                //change from load to ReadCLI func
                 load_model,
                 spawn_camera,
                 spawn_plane,

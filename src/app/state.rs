@@ -1,5 +1,5 @@
-#[derive(Debug)]
-pub enum Modes {
+// add code here
+pub enum StateApp {
     Normal,
     Visual,
     Insert,

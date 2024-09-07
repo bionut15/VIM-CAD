@@ -1,14 +1,15 @@
 //add shader functionality
 //use crate::shaders::shader;
 use bevy::prelude::*;
+use std::env;
 
+// add func to read from console with
 // make it read from a config file
 pub fn load_model(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
-    //to be changed
     let cube_handle = asset_server.load(
         GltfAssetLabel::Primitive {
             mesh: 0,
@@ -27,4 +28,9 @@ pub fn load_model(
         transform: Transform::from_xyz(0.0, 0.0, 0.0),
         ..default()
     });
+}
+
+pub fn ReadCLI() {
+    // add that args for instead of load model
+    let args: Vec<String> = env::args().collect();
 }
