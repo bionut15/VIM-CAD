@@ -5,13 +5,15 @@ use bevy_panorbit_camera::PanOrbitCameraPlugin;
 //if u use modules outside of main u have to declare them here xd
 mod app {
     pub mod gui;
+    pub mod keymaps;
     pub mod state;
 }
 mod parser;
 mod shaders;
 mod viewport;
 
-use app::gui::UI;
+use crate::app::state::{MainWindow, StateApp, Transition::*};
+use app::{gui::UI, keymaps::keymaps::keyboard_input};
 use parser::loader::load_model;
 use viewport::camera::camera_movement_system;
 use viewport::camera::spawn_camera;
