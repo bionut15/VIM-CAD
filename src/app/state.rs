@@ -1,5 +1,8 @@
+use bevy::prelude::States;
 // add code here
+#[derive(Clone, Copy, PartialEq, Eq, Hash, Debug, Default, States)]
 pub enum StateApp {
+    #[default]
     Normal,
     Visual,
     Insert,
